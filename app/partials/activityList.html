@@ -1,5 +1,11 @@
 <div class="activityList">
 	<a href="#/add" class="btn addActivityBtn">+ Add activity</a> <br/>
 	<div class="activities">
+      	<a ng-repeat="activity in parkedActivities" {{this.parkedActivities}}>
+			<div class="row breakLine">
+			<p class="schedule-text"> {{this.activity.getLength()}} min {{this.activity.getName()}} </p>
+			</div>
+            	
+        </a>
 	</div>
 </div>
