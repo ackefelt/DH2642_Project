@@ -78,18 +78,13 @@ agendaPlannerApp.factory('Agenda',function($resource){
 
 
 	//TESTING DATA
-	this.addDay(10,20);
+	this.addDay(08,00);
 	this.act = new Activity("Introduction",10,0,"");
-	this.addActivity(this.act,0,0);
+	//this.addActivity(this.act,0,0);
 	this.addActivity(new Activity("Idea 1",30,0,""),0);
-	this.addParkedActivity(this.act,0);
-	this.addDay();
-	this.addActivity(new Activity("Idea 1 discussion",15,2,""),1);
+	//this.addParkedActivity(this.act,0);
 	this.addDay();
 
-	this.addActivity(new Activity("Coffee break",20,3,""),2);
-	this.addDay();
-	this.addActivity(new Activity("Working in groups",35,1,""),3);
 	console.log(this.days);
 	console.log(this.parkedActivities.length);
 	console.log("derp");
@@ -190,7 +185,16 @@ function Day(startH,startM) {
 	// the end time of the day
 	this.getEnd = function() {
 		var end = this._start + this.getTotalLength();
-		return Math.floor(end/60) + ":" + end % 60;
+		var endhour = Math.floor(end/60);
+		var endmin = end % 60;
+
+		if(endhour < 10) {
+			endhour = "0" + endhour;
+		}
+		if(endmin < 10) {
+			endmin = "0" + endmin;
+		}
+		return endhour + ":" + endmin;
 	};
 	
 	// returns the string representation Hours:Minutes of 

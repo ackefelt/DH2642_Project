@@ -10,25 +10,22 @@ agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda) {
  	}
 
  	$scope.addDay = function() {
- 		var newDays = angular.element(document.querySelector('#newDays'));
- 		var txt = "<div class='col-md-3 day'>"+
-            "<div class='row dayHeader'>"+
-                "<div class='col-md-9 dayInfo'>"+
-                    "<p>Start time: {{this.getDays()[0].getStart()}} </p>"+
-                    "<p>End time: {{this.getDays()[0].getEnd()}} </p>"+
-                    "<p>Total length: {{this.getDays()[0].getTotalLength()}} min</p>"+
-                "</div>"+
-                "<div class='col-md-3 timeAllocatedBox'></div>"+
-            "</div>"+
-        "<div>"+
-            "<div class='row schedule'>"+
-                "<a ng-repeat='activity in days[0].getActivities()' {{this.days}} >"+
-                "<div class='row breakLine'>"+
-                    "<p class='schedule-text'> {{this.activity.getLength()}} min {{this.activity.getName()}} </p>"+
-                "</div>"+
-                "</a>"+
-            "</div>"+
-        "</div>";
-        newDays.append(txt);
+ 		document.getElementById('days2').innerHTML += '<div class="day">'+
+                    '<div class="dayHeader">'+
+                        '<div class="dayInfo">'+
+                            '<p>Start time: <input type="text" name="startTime" value="08:00" style="width: 50px;"></p>'+
+                            '<p>End time: --:--</p>'+
+                            '<p>Total length: -- min</p>'+
+                        '</div>'+
+                        '<div class="timeAllocatedBox"></div>'+
+                    '</div>'+
+                    '<div class="daySchedule">'+
+                        '<a ng-repeat="activity in days[0].getActivities()" {{this.days}}>'+
+                        //'<div class="breakLine">'+
+                        //    '<p class="schedule-text"> -- min x </p>'+
+                        //'</div>'+
+                        '</a>'+
+                    '</div>'+
+                '</div>';
  	}
 });
