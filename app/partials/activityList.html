@@ -1,9 +1,9 @@
-<div class="activityList">
+<div class="activityList" x-lvl-drop-target="true" x-on-drop="dropped(null,$scope.parkedActivities.length,dragEl, dropEl)">
 	<a href="#/add" class="btn addActivityBtn">+ Add activity</a> <br/>
 	<div class="activities">
-      	<a ng-repeat="activity in parkedActivities" {{this.parkedActivities}}>
-			<div class="breakLine">
-				<p class="schedule-text">{{this.activity.getLength()}} min {{this.activity.getName()}}</p>
+      	<a x-lvl-drop-target="true" x-on-drop="dropped(null,$index,dragEl, dropEl)" ng-repeat="activity in parkedActivities" {{this.parkedActivities}}>
+			<div class="breakLine"  x-lvl-draggable="true" x-on-drag="drag(null,$index,dragEl,dropEl)" data-position="{{$index}}" style="background-color: {{colorFn[activity.getTypeId()]}};">
+				<p  class="schedule-text">{{this.activity.getLength()}} min {{this.activity.getName()}}</p>
 			</div>	
         </a>
 	</div>

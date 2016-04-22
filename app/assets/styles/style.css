@@ -1,19 +1,58 @@
 body {
 	background-color: #dedede;
-
 }
 
+a:hover {
+	text-decoration: none;
+}
+
+.lvl-over {
+
+	/* applied to a drop target when a draggable object is over it */
+	border: 2px dashed black;
+}
+}
+
+
+
+
+.lvl-target {
+	/* 
+	applied to all drop targets when a drag operation begins 
+	removed when the drag operation ends
+	used to indicate drop targets on a page 
+	*/
+	background-color: #ddd;
+	opacity: .5;
+}
+
+[draggable] {
+	/* not applied by the directive, but useful to indicate a draggable element */
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: move;
+	/*border:1px solid black;*/
+}
 .containerStart {
 	background-image: url(../images/background.jpg);
 	border: 3px solid #000;
-	min-height: 700px;
-	display: block;
+    overflow-x: auto;
+    /*white-space: nowrap;*/
+}
+
+.container{
+    .row{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
 }
 
 .containerAgenda {
+    padding: 0.5em;
     overflow-x: auto;
     white-space: nowrap;
-    padding: 15px;
 }
 
 .header {
@@ -31,10 +70,10 @@ body {
 	font-style: italic;
 }
 .start {
-	margin-top: 150px;
-	margin-bottom: 150px;
+	margin-top: 140px;
+	margin-bottom: 140px;
 	padding: 1em;
-	background-color:rgba(255,255,255,0.7);
+	background-color:rgba(255,255,255,0.9);
 	border: 2px solid #000;
 }
 
@@ -44,13 +83,6 @@ body {
 
 .footer {
 	text-align: center;
-}
-
-.days2 {
-	display: inline-block;
-    word-wrap: break-word;
-    white-space: normal;
-	vertical-align: top;
 }
 
 .sidebar {
@@ -84,13 +116,12 @@ body {
 .addDayBtn {
 	color: #000;
 	background-color: rgba(118, 206, 93, 1);
-	margin-top: 0.5em;
+	margin: 0.5em;
 	border: 2px solid #000;
 	font-size: 18px;
 	padding: 0.5em;
 	width: 8em;
 	height: 8em;
-	margin-bottom: 0.5em;	
 	display: flex;
 	justify-content: center; /* align horizontal */
 	align-items: center; /* align vertical */
@@ -103,7 +134,7 @@ body {
 }
 
 .activities {
-	background-color:rgba(255,255,255,0.7);
+	background-color:rgba(255,255,255,0.9);
 	min-height: 492px;
 	border: 2px solid #000;
 }
@@ -111,11 +142,10 @@ body {
 .day {
 	width: 20em;
 	display: inline-block;
-	background-color:rgba(255,255,255,0.7);
+	background-color:rgba(255,255,255,0.9);
 	min-height: 547px; 
 	border: 2px solid #000;
-	margin-top: 10px;
-	margin-left: 10px;
+	margin: 0.5em;
 	vertical-align: top;
 }
 
@@ -123,6 +153,7 @@ body {
 	width: 100%;
 	min-height: 8em;
 	border-bottom: 2px solid #000;
+	margin-bottom: 0px;
 }
 
 .dayInfo {
@@ -133,7 +164,6 @@ body {
 }
 
 .timeAllocatedBox {
-	background-color:rgba(89, 89, 255, 1);
 	border-left: 2px solid #000;
 	border-bottom: 2px solid #000;
 	width: 5em;
@@ -142,19 +172,17 @@ body {
 }
 
 .daySchedule {
-	margin-top: 4px;
 	width: 100%;
 }
 
 .schedule-text {
-	text-align: center;
 	color: #000;
+	margin-left: 10px;
 }
 
 .breakLine {
-	margin-left: 0px;
+	padding-top: 7px;
 	width: 100%;
-	min-height: 69px;
 	border-bottom: 2px solid #000;
 }
 
@@ -165,7 +193,7 @@ body {
 }
 
 .addActivity {
-	background-color:rgba(255,255,255,0.7);
+	background-color:rgba(255,255,255,0.9);
 	min-height: 447px;
 	border: 2px solid #000;
 	margin-top: 50px;

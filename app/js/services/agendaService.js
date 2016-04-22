@@ -50,7 +50,7 @@ agendaPlannerApp.factory('Agenda',function($resource){
    	// remove an activity on provided position from parked activites 
 	this.removeParkedActivity = function(position) {
 		act = this.parkedActivities.splice(position,1)[0];
-		this.notifyObservers();
+		//this.notifyObservers();
 		return act;
 	};
 
@@ -76,19 +76,35 @@ agendaPlannerApp.factory('Agenda',function($resource){
 		}
 	};
 
-
+	
 	//TESTING DATA
-	this.addDay(08,00);
-	this.act = new Activity("Introduction",10,0,"");
-	//this.addActivity(this.act,0,0);
+	this.addDay();
+	this.addActivity(new Activity("Introduction",10,0,""),0);
 	this.addActivity(new Activity("Idea 1",30,0,""),0);
+	this.addActivity(new Activity("Break",20,3,""),0);
+	this.addActivity(new Activity("Working in groups",40,1,""),0);
+	this.addActivity(new Activity("Idea 1 discussion",40,2,""),0);
+	this.addActivity(new Activity("Coffee break",20,3,""),0);
+
+	this.addDay();
+	this.addActivity(new Activity("Introduction",10,0,""),1);
+	this.addActivity(new Activity("Coffee break",20,3,""),1);
+	/*
+	this.addDay(08,00);
+	//this.act = new Activity("Introduction",10,0,"");
+	//this.addActivity(this.act,0,0);
+	//this.addActivity(new Activity("Idea 1",30,0,""),0);
 	//this.addParkedActivity(this.act,0);
+	this.addParkedActivity(new Activity("Introduction",10,0,""),0);
+	this.addActivity(new Activity("Introduction",10,0,""),0);
+	this.addDay();
 	this.addDay();
 
 	console.log(this.days);
 	console.log(this.parkedActivities.length);
 	console.log("derp");
 	console.log(this.days[0].getActivities());
+	*/
 
 
 	return this;
@@ -111,7 +127,7 @@ function Activity(name,length,typeid,description){
 	// sets the name of the activity
 	this.setName = function(name) {
 		_name = name;
-		model.notifyObservers();
+		//model.notifyObservers();
 	}
 
 	// get the name of the activity
@@ -122,7 +138,7 @@ function Activity(name,length,typeid,description){
 	// sets the length of the activity
 	this.setLength = function(length) {
 		_length = length;
-		model.notifyObservers();
+		//model.notifyObservers();
 	}
 
 	// get the name of the activity
@@ -133,7 +149,7 @@ function Activity(name,length,typeid,description){
 	// sets the typeid of the activity
 	this.setTypeId = function(typeid) {
 		_typeid = typeid;
-		model.notifyObservers();
+		//model.notifyObservers();
 	}
 
 	// get the type id of the activity
@@ -144,7 +160,7 @@ function Activity(name,length,typeid,description){
 	// sets the description of the activity
 	this.setDescription = function(description) {
 		_description = description;
-		model.notifyObservers();
+		//model.notifyObservers();
 	}
 
 	// get the description of the activity
@@ -200,7 +216,17 @@ function Day(startH,startM) {
 	// returns the string representation Hours:Minutes of 
 	// the start time of the day
 	this.getStart = function() {
-		return Math.floor(this._start/60) + ":" + this._start % 60;
+		var endhour = Math.floor(this._start/60);
+		var endmin = this._start % 60;
+
+		if(endhour < 10) {
+			endhour = "0" + endhour;
+		}
+		if(endmin < 10) {
+			endmin = "0" + endmin;
+		}
+		return endhour + ":" + endmin;
+		//return Math.floor(this._start/60) + ":" + this._start % 60;
 	};
 
 	this.getActivities = function() {
