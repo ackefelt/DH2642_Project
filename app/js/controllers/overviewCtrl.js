@@ -1,11 +1,11 @@
 agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop) {
-
+    
     $scope.colorFn = ["#9eb7ff", "#ff9e9e", "#a9ff9e", "#fffe9e"];
     $scope.latestDragPos = 0;
     $scope.latestDragDay = null;
  	$scope.days = Agenda.getDays();
  	$scope.parkedActivities = Agenda.getParkedActivities();
-    
+        
     $scope.drag = function(oldDay, oldPosition, dragEl, dropEl){
         $scope.latestDragDay = oldDay;
         $scope.latestDragPos = oldPosition;
@@ -14,35 +14,8 @@ agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop) 
     $scope.dropped = function(newDay, newPosition, dragEl, dropEl) {
     Agenda.moveActivity($scope.latestDragDay, $scope.latestDragPos, newDay,newPosition);
     $scope.days = Agenda.getDays();
-    $scope.$apply();
     $scope.parkedActivities = Agenda.getParkedActivities();
-    }
-
-    $scope.percent = function(day) {
-        if(day.getTotalLength() == 0) {
-            return 0;
-        }
-
-        var totalPercentage = 0;
-        var testColors = "";
-
-        for(var i = 0; i < 4; i++) {
-            if(day.getLengthByType(i)/day.getTotalLength() > 0) {
-                if(i == 1 || i == 2) {
-                    testColors += this.colorFn[i] + " " + (totalPercentage+1) + "%, ";
-                }
-                if(i != 3) {
-                    totalPercentage += parseInt(Math.round(100*(day.getLengthByType(i)/day.getTotalLength())));
-                    testColors += this.colorFn[i] + " " + totalPercentage + "%, ";
-                }
-                if(i == 3) {
-                    totalPercentage++;
-                    testColors += this.colorFn[i] + " " + totalPercentage + "%";
-                }
-            }
-        }
-        //console.log(testColors);
-        return testColors;
+    $scope.$apply();
     }
 
     $scope.actStartTime = function(index,day) {
@@ -75,14 +48,8 @@ agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop) 
  	$scope.addDay = function() {
         Agenda.addDay();
  	}
-/*
-    $scope.allowDrop = function(evt) {
-        evt.preventDefault();
-    } */
 
     $scope.newTime = function(day,timeVal) {
-        //console.log(day);
-        //console.log(evt);
         var time = timeVal.split(":");
         
         if(time[0] == "" || time[0] > 23 || time[0] < 0) {

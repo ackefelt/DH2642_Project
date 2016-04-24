@@ -1,4 +1,4 @@
-var agendaPlannerApp = angular.module('agendaPlanner', ['ngRoute','ngResource','ngDragDrop','lvl.directives.dragdrop']);
+var agendaPlannerApp = angular.module('agendaPlanner', ['ngRoute','ngResource','ngDragDrop','lvl.directives.dragdrop','firebase']);
 
 agendaPlannerApp.config(['$routeProvider',
   function($routeProvider) {

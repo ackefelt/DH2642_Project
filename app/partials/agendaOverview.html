@@ -12,7 +12,7 @@
                             <p>End time: {{dayX.getEnd()}}</p>
                             <p>Total length: {{dayX.getTotalLength()}} min</p>
                         </div>
-                        <div class="timeAllocatedBox" style="background: linear-gradient(180deg, {{percent(dayX)}});"></div>
+                        <div class="timeAllocatedBox" style="background: linear-gradient(180deg, {{dayX.getColor()}});"></div>
                     </div>
                     <div class="daySchedule" >
                         <a div ng-repeat="activity in dayX.getActivities()" x-on-drop="dropped($parent.$index,$index,dragEl, dropEl)"  x-lvl-drop-target="true">
