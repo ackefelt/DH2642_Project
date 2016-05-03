@@ -1,4 +1,4 @@
-agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop) {
+agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop,$location) {
     
     $scope.colorFn = ["#9eb7ff", "#ff9e9e", "#a9ff9e", "#fffe9e"];
     $scope.latestDragPos = 0;
@@ -44,30 +44,51 @@ agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop) 
  	$scope.getParkedActivities = function() {
  		return Agenda.getParkedActivities();
  	}
+    $scope.changeToEditView = function(index,dayIndex){
+        $location.path('edit/'+dayIndex+'/'+index);
+    }
 
  	$scope.addDay = function() {
         Agenda.addDay();
  	}
+    $scope.removeDay = function(index) {
+        Agenda.removeDay(index);
+    }
+    $scope.removeParkedActivity = function(position) {
+        Agenda.removeParkedActivity(position);
+    }
+    $scope.removeActivity = function(position, dayIndex) {
+        Agenda.removeActivity(position, dayIndex);
+    }
 
     $scope.newTime = function(day,timeVal) {
-        var time = timeVal.split(":");
-        
-        if(time[0] == "" || time[0] > 23 || time[0] < 0) {
-            day.setStart(8,0);
-        } else {
-            if(time.length > 1) {
-                if(time[1] < 60 && time[1] >= 0) {
-                    if(time[1] == "") {
-                        day.setStart(parseInt(time[0]),0);
+        if (timeVal.indexOf(":") == -1){
+            alert("Wrong time format");
+        }
+        else{
+            var time = timeVal.split(":");
+            var hour = parseInt(time[0]);
+            var min = parseInt(time[1]);
+
+            if( isNaN(hour) || hour > 23 || hour < 0 || isNaN(min) || min > 59 || min < 0){
+                alert("Wrong time format, use for example 23:54, hh:mm");
+            } 
+            else {
+                if(time.length > 1) {
+                    if(time[1] < 60 && time[1] >= 0) {
+                        if(time[1] == "") {
+                            day.setStart(parseInt(time[0]),0);
+                        } else {
+                            day.setStart(parseInt(time[0]),parseInt(time[1]));
+                        }
                     } else {
-                        day.setStart(parseInt(time[0]),parseInt(time[1]));
+                        day.setStart(parseInt(time[0]),0);
                     }
                 } else {
                     day.setStart(parseInt(time[0]),0);
                 }
-            } else {
-                day.setStart(parseInt(time[0]),0);
             }
+            day._updateActivites();
         }
     }
 });

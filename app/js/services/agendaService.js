@@ -18,50 +18,28 @@ agendaPlannerApp.factory('Agenda',function($resource,$rootScope){
     this.loadFirebase = function (ref) {
         var mycallback = function (snap) {
             if(snap != undefined){
-            if (snap.dayp != undefined) {
-                for (var i = 0; i < snap.dayp.length; i++) {
-                    ref.addParkedActivity(new Activity(snap.dayp[i].name, snap.dayp[i].length, snap.dayp[i].typeid, snap.dayp[i].description), i + 1)
-                }
-            }
-            if (snap.day1 != undefined) {
-                for (var i = 0; i < snap.day1.length; i++) {
-                    if (i == 0)
-                        ref.addDay();
-                    ref.addActivity(new Activity(snap.day1[i].name, snap.day1[i].length, snap.day1[i].typeid, snap.day1[i].description), 0, i)
-                }
-            }
-            if (snap.day2 != undefined) {
-                for (var i = 0; i < snap.day2.length; i++) {
-                    if (i == 0)
-                        ref.addDay();
-                    ref.addActivity(new Activity(snap.day2[i].name, snap.day2[i].length, snap.day2[i].typeid, snap.day2[i].description), 1, i)
-                }
-            }
-            if (snap.day3 != undefined) {
-                for (var i = 0; i < snap.day3.length; i++) {
-                    if (i == 0)
-                        ref.addDay();
-                    ref.addActivity(new Activity(snap.day3[i].name, snap.day3[i].length, snap.day3[i].typeid, snap.day3[i].description), 2, i)
-                }
-            }
-            if (snap.day4 != undefined) {
-                for (var i = 0; i < snap.day4.length; i++) {
-                    if (i == 0)
-                        ref.addDay();
-                    ref.addActivity(new Activity(snap.day4[i].name, snap.day4[i].length, snap.day4[i].typeid, snap.day4[i].description), 3, i)
-                }
-            }
-            if (snap.day5 != undefined) {
-                for (var i = 0; i < snap.day5.length; i++) {
-                    if (i == 0)
-                        ref.addDay();
-                    ref.addActivity(new Activity(snap.day5[i].name, snap.day5[i].length, snap.day5[i].typeid, snap.day5[i].description), 4, i)
-                }
-            }
+            	var j = 0;
+            	for(var key in snap) {
+            		if(key == "dayp") {
+	            		for(var l = 0; l < snap[key].length; l++){
+	            			ref.addParkedActivity(new Activity(snap[key][l].name, snap[key][l].length, snap[key][l].typeid, snap[key][l].description), l + 1)
+	            		}
+	            	}
+	            	else{
+	  	            	for(var l = 0; l < snap[key].length; l++){
+	  	            		if(l == 0){
+								ref.fbDay(snap[key][l].start);
+								continue;
+	  	            		}
+	            			ref.addActivity(new Activity(snap[key][l].name, snap[key][l].length, snap[key][l].typeid, snap[key][l].description), j, l)
+	            		} 
+	            		j++;         		
+	            	}
+            	}
         	}
         $rootScope.$apply();
     }
-    this.getFirebase(mycallback)
+   this.getFirebase(mycallback)
 	}
 	this.loadFirebase(this);
 	
@@ -70,12 +48,35 @@ agendaPlannerApp.factory('Agenda',function($resource,$rootScope){
 	this.addDay = function (startH,startM) {
 		var day;
 		if(startH){
+			this.day()
 			day = new Day(startH,startM,this.days.length);
 		} else {
 			day = new Day(8,0, this.days.length);
 		}
 		this.days.push(day);
 		return day;
+	};
+	this.fbDay = function (minutes) {
+        var day;
+        var hour = Math.floor(minutes / 60);
+        var min = minutes - (hour * 60);
+        day = new Day(hour, min, this.days.length);
+        day.setIndex(this.days.length) // Used by firebase   
+        this.days.push(day);
+        return day;
+    };
+	this.removeDay = function (index) {
+		this.days.splice(index, 1);
+
+		for (i = 0; i < this.days.length; i++) {        	
+        	this.days[i].setIndex(i);        	
+		}
+        // Firebase removes by updating with empty activites
+        var name = "day";
+        name += (index + 1);
+        foo = {}; 
+		foo[name] = '[]'; 
+        this.firebase.child(name).remove();
 	};
 
     // add an activity to model
@@ -125,6 +126,12 @@ agendaPlannerApp.factory('Agenda',function($resource,$rootScope){
         this.updateParkedActivitiesOnFirebase();
         return activity;
 	};
+	this.removeActivity = function(position,dayIndex) {
+        var activity = this.days[dayIndex]._activities[position];
+        this.days[dayIndex]._removeActivity(position);
+        this.days[dayIndex]._updateActivites();
+        return activity;
+	};
 
 	// moves activity between the days, or day and parked activities.
 	// to park activity you need to set the new day to null
@@ -164,7 +171,6 @@ function Activity(name,length,typeid,description){
 	// sets the name of the activity
 	this.setName = function(name) {
 		_name = name;
-		//model.notifyObservers();
 	}
 
 	// get the name of the activity
@@ -252,7 +258,7 @@ function Day(startH,startM,dayID) {
 
         for(var i = 0; i < 4; i++) {
             if(this.getLengthByType(i)/this.getTotalLength() > 0) {
-                if(i == 1 || i == 2) {
+                if(true) {
                     testColors += this.colorFn[i] + " " + (totalPercentage+1) + "%, ";
                 }
                 if(i != 3) {
@@ -261,10 +267,11 @@ function Day(startH,startM,dayID) {
                 }
                 if(i == 3) {
                     totalPercentage++;
-                    testColors += this.colorFn[i] + " " + totalPercentage + "%";
+                    testColors += this.colorFn[i] + " " + totalPercentage + "%, ";
                 }
             }
         }
+        testColors = testColors.slice(0, -2);
         return testColors;
     }
 
@@ -370,26 +377,11 @@ function Day(startH,startM,dayID) {
         for (var i = 0; i < this._activities.length; i++) {
             activitiesJSON.push(this._activities[i].JSON())
         }
-        if (this._index == 0)
-            this.firebase.update({
-                day1: activitiesJSON
-            });
-        if (this._index == 1)
-            this.firebase.update({
-                day2: activitiesJSON
-            });
-        if (this._index == 2)
-            this.firebase.update({
-                day3: activitiesJSON
-            });
-        if (this._index == 3)
-            this.firebase.update({
-                day4: activitiesJSON
-            });
-        if (this._index == 4)
-            this.firebase.update({
-                day5: activitiesJSON
-            });
-
+        activitiesJSON.unshift({ start: this._start});
+		var name = "day";
+        name += (this._index  + 1);
+        foo = {};
+		foo[name] = activitiesJSON; 
+        this.firebase.update(foo);
     }
 }

@@ -4,11 +4,12 @@
             <div class="sidebar">
                 <ng-include src="'partials/activityList.html'" ></ng-include>
             </div>
-
-                <div class="day" ng-repeat="dayX in days" {{this.days}} daynmbr="{{index}}" x-on-drop="dropped($index,dayX._activities.length,dragEl, dropEl)"  x-lvl-drop-target="true">
+                <div class="dayCol" ng-repeat="dayX in days" {{this.days}} daynmbr="{{index}}"> 
+                <a class="btn removeDayBtn" data-ng-click='removeDay($index)' >- Remove day</a> <br/>
+                <div class="day"  x-on-drop="dropped($index,dayX._activities.length,dragEl, dropEl)"  x-lvl-drop-target="true">
                     <div class="dayHeader" x-lvl-drop-target="false">
                         <div class="dayInfo">
-                            <p>Start time: <input type="text" id="startTime" style="width: 50px;" ng-model="startTime" ng-keyup="newTime(dayX,startTime)" ngMaxlength="5" placeholder="{{dayX.getStart()}}"></form></p>
+                            <p>Start time: <input type="text" id="startTime" style="width: 80px;" ng-model="startTime" ng-blur="newTime(dayX,startTime)" ngMaxlength="5" placeholder="{{dayX.getStart()}}"></form></p>
                             <p>End time: {{dayX.getEnd()}}</p>
                             <p>Total length: {{dayX.getTotalLength()}} min</p>
                         </div>
@@ -17,10 +18,14 @@
                     <div class="daySchedule" >
                         <a div ng-repeat="activity in dayX.getActivities()" x-on-drop="dropped($parent.$index,$index,dragEl, dropEl)"  x-lvl-drop-target="true">
                         <div class="breakLine" x-lvl-draggable="true" x-on-drag="drag($parent.$index,$index,dragEl,dropEl)" style="background-color: {{colorFn[activity.getTypeId()]}}; cursor: pointer;">
-                            <p  class="schedule-text">{{actStartTime($index,dayX)}} {{activity.getName()}} ({{activity.getLength()}} min)</p>
+                            <p  class="schedule-text">{{actStartTime($index,dayX)}} {{activity.getName()}} ({{activity.getLength()}} min)
+                            <img class ="trashBtn" data-ng-click='removeActivity($index,$parent.$index)'src="/assets/images/trash-512.png" alt="Remove activity" align="right" width="20" height="20">
+                            <img class ="trashBtn" data-ng-click='changeToEditView($index,$parent.$index)'src="/assets/images/edit-512.png" alt="Edit activity" align="right" width="20" height="20"> 
+                            </p>
                         </div>
                     </a>
                     </div>
+                </div>
                 </div>
 
             <div class="addDay">

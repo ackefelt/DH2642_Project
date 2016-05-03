@@ -13,6 +13,10 @@ agendaPlannerApp.config(['$routeProvider',
       when('/add', {
         templateUrl: 'partials/addActivity.html',
         controller: 'addActivityCtrl'
+      }).
+      when('/edit/:day_index/:activity_index', {
+        templateUrl: 'partials/editActivity.html',
+        controller: 'editActivityCtrl'
       }).      
       otherwise({
         redirectTo: '/home'

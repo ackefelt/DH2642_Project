@@ -41,6 +41,10 @@ a:hover {
     overflow-x: auto;
     /*white-space: nowrap;*/
 }
+.trashBtn{
+	cursor: pointer;
+	margin: 4px;
+}
 
 .container{
     .row{
@@ -112,6 +116,21 @@ a:hover {
 	width: 100%;
 	margin-bottom: 0.5em;	
 }
+.dayCol {
+	display: inline-block;
+	margin: 0.7em;
+	vertical-align: top;
+}
+.removeDayBtn {
+	color: #000;
+	display: inline-block;
+	background-color: rgba(206, 26, 26, 1);
+	border: 2px solid #000;
+	font-size: 18px;
+	padding: 0.5em;
+	width: 100%;
+	margin-bottom: 0.5em;	
+}
 
 .addDayBtn {
 	color: #000;
@@ -135,7 +154,7 @@ a:hover {
 
 .activities {
 	background-color:rgba(255,255,255,0.9);
-	min-height: 492px;
+	min-height: 547px;
 	border: 2px solid #000;
 }
 
@@ -145,7 +164,6 @@ a:hover {
 	background-color:rgba(255,255,255,0.9);
 	min-height: 547px; 
 	border: 2px solid #000;
-	margin: 0.5em;
 	vertical-align: top;
 }
 

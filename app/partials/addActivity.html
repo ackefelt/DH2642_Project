@@ -1,13 +1,15 @@
 <div class="col-md-3 addActivity">
 	<div class="innerAddActivity"> 
 		<div class="row">
+				<h3>Create an activity</h3>
 				<form name="activity">
 				Activity name: <br/>
 				<input type="text" ng-model="activity.name"> <br/>
-				Activity length:<br>
-				<input type="number" ng-model="activity.length"> min <br/>
-				<select ng-model="activity.type">
-					<option value="0">Presentation</option>
+				Activity length in minutes:<br>
+				<input type="number" ng-model="activity.length"><br/>
+				Type of activity:<br/>
+				<select ng-init="activity.type = 0" ng-model="activity.type">
+					<option value="0" >Presentation</option>
 					<option value="1">Group work</option>
 					<option value="2">Discussion</option>
 					<option value="3">Break</option>
@@ -18,7 +20,7 @@
 		</div>
 		<div class="row buttons">
 			<a href="#/overview" ng-click="cancel()" class="btn cancelBtn">Cancel</a>
-			<a href="#/overview" ng-click="submit()" class="btn saveBtn">OK</a>
+			<a href="" ng-click="submit()" class="btn saveBtn">OK</a>
 		</div>
 	</div>
 </div>
