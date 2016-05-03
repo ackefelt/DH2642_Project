@@ -1,0 +1,26 @@
+<div class="col-md-3 addActivity">
+	<div class="innerAddActivity"> 
+		<div class="row">
+				<h3>Edit an activity</h3>
+				<form name="activity">
+				Activity name: <br/>
+				<input type="text" ng-model="actName"> <br/>
+				Activity length in minutes:<br>
+				<input type="number" ng-model="actLength"><br/>
+				Type of activity:<br/>
+				<select ng-model="actType">
+					<option value="0">Presentation</option>
+					<option value="1">Group work</option>
+					<option value="2">Discussion</option>
+					<option value="3">Break</option>
+				</select> <br/>
+				Activity description: <br/>
+				<textarea ng-model="actDescription" cols="50" rows="10"></textarea>
+			</form>
+		</div>
+		<div class="row buttons">
+			<a href="#/overview" ng-click="cancel()" class="btn cancelBtn">Cancel</a>
+			<a href="" ng-click="submit()" class="btn saveBtn">OK</a>
+		</div>
+	</div>
+</div>
