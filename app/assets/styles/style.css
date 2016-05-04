@@ -43,7 +43,11 @@ a:hover {
 }
 .trashBtn{
 	cursor: pointer;
-	margin: 4px;
+	float:right;
+	margin-left:2px;
+	width: 20px;
+	height: 20px;
+	display: inline;
 }
 
 .container{
@@ -178,7 +182,9 @@ a:hover {
 	width: 14em;
 	display: inline;
 	float: left;
-	padding: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .timeAllocatedBox {
@@ -195,13 +201,16 @@ a:hover {
 
 .schedule-text {
 	color: #000;
-	margin-left: 10px;
+	margin-left: 5px;
+	display: inline-block;
 }
 
 .breakLine {
-	padding-top: 7px;
+	float: left;
 	width: 100%;
+	padding: 10px;
 	border-bottom: 2px solid #000;
+	display: inline-block;
 }
 
 .addDay {

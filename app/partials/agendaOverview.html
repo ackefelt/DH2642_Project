@@ -16,12 +16,13 @@
                         <div class="timeAllocatedBox" style="background: linear-gradient(180deg, {{dayX.getColor()}});"></div>
                     </div>
                     <div class="daySchedule" >
-                        <a div ng-repeat="activity in dayX.getActivities()" x-on-drop="dropped($parent.$index,$index,dragEl, dropEl)"  x-lvl-drop-target="true">
+                        <a ng-repeat="activity in dayX.getActivities()" x-on-drop="dropped($parent.$index,$index,dragEl, dropEl)"  x-lvl-drop-target="true">
                         <div class="breakLine" x-lvl-draggable="true" x-on-drag="drag($parent.$index,$index,dragEl,dropEl)" style="background-color: {{colorFn[activity.getTypeId()]}}; cursor: pointer;">
-                            <p  class="schedule-text">{{actStartTime($index,dayX)}} {{activity.getName()}} ({{activity.getLength()}} min)
-                            <img class ="trashBtn" data-ng-click='removeActivity($index,$parent.$index)'src="/assets/images/trash-512.png" alt="Remove activity" align="right" width="20" height="20">
-                            <img class ="trashBtn" data-ng-click='changeToEditView($index,$parent.$index)'src="/assets/images/edit-512.png" alt="Edit activity" align="right" width="20" height="20"> 
-                            </p>
+                            <span class="schedule-text">{{actStartTime($index,dayX)}} {{activity.getName()}} ({{activity.getLength()}} min)</span>
+                            <img class ="trashBtn" data-ng-click='removeActivity($index,$parent.$index)'src="/assets/images/trash-512.png" alt="Remove activity">
+                            <img class ="trashBtn" data-ng-click='changeToEditView($index,$parent.$index)'src="/assets/images/edit-512.png" alt="Edit activity" > 
+                             
+                           
                         </div>
                     </a>
                     </div>

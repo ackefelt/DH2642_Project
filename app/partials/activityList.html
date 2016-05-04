@@ -3,9 +3,9 @@
 	<div class="activities">
       	<a x-lvl-drop-target="true" x-on-drop="dropped(null,$index,dragEl, dropEl)" ng-repeat="activity in parkedActivities" {{this.parkedActivities}}>
 			<div class="breakLine"  x-lvl-draggable="true" x-on-drag="drag(null,$index,dragEl,dropEl)" data-position="{{$index}}" style="background-color: {{colorFn[activity.getTypeId()]}};">
-				<p class="schedule-text">{{this.activity.getLength()}} min {{this.activity.getName()}}
-				<img class ="trashBtn" data-ng-click='removeParkedActivity($index)'src="/assets/images/trash-512.png" alt="Remove activity" align="right" width="20" height="20">
-				<img class ="trashBtn" data-ng-click='changeToEditView($index,"parked")'src="/assets/images/edit-512.png" alt="Edit activity" align="right" width="20" height="20"></p>
+				<span class="schedule-text">{{this.activity.getLength()}} min {{this.activity.getName()}}</span>
+				<img class ="trashBtn" data-ng-click='removeParkedActivity($index)'src="/assets/images/trash-512.png" alt="Remove activity" align="right" width="20" height="20"> 
+				<img class ="trashBtn" data-ng-click='changeToEditView($index,"parked")'src="/assets/images/edit-512.png" alt="Edit activity" align="right" width="20" height="20">
 			</div>	
         </a>
 	</div>
