@@ -6,23 +6,23 @@
             </div>
                 <div class="dayCol" ng-repeat="dayX in days" {{this.days}} daynmbr="{{index}}"> 
                 <a class="btn removeDayBtn" data-ng-click='removeDay($index)' >- Remove day</a> <br/>
-                <div class="day"  x-on-drop="dropped($index,dayX._activities.length,dragEl, dropEl)"  x-lvl-drop-target="true">
-                    <div class="dayHeader" x-lvl-drop-target="false">
+                <div class="day lvl-droppable"  x-on-drop="dropped($index,dayX._activities.length,dragEl, dropEl)"  x-lvl-drop-target="true">
+                    <div class="dayHeader">
                         <div class="dayInfo">
                             <p>Start time: <input type="text" id="startTime" style="width: 80px;" ng-model="startTime" ng-blur="newTime(dayX,startTime)" ngMaxlength="5" placeholder="{{dayX.getStart()}}"></form></p>
                             <p>End time: {{dayX.getEnd()}}</p>
                             <p>Total length: {{dayX.getTotalLength()}} min</p>
                         </div>
-                        <div class="timeAllocatedBox" style="background: linear-gradient(180deg, {{dayX.getColor()}});"></div>
+                        <div class="timeAllocatedBox" style="background: linear-gradient(180deg, {{dayX.getColor()}});">
+                            <div class="inner"></div>
+                        </div>
                     </div>
                     <div class="daySchedule" >
                         <a ng-repeat="activity in dayX.getActivities()" x-on-drop="dropped($parent.$index,$index,dragEl, dropEl)"  x-lvl-drop-target="true">
-                        <div class="breakLine" x-lvl-draggable="true" x-on-drag="drag($parent.$index,$index,dragEl,dropEl)" style="background-color: {{colorFn[activity.getTypeId()]}}; cursor: pointer;">
+                        <div x-lvl-x-lvl-drop-target="true" class="breakLine lvl-droppable" x-lvl-draggable="true" x-on-drag="drag($parent.$index,$index,dragEl,dropEl)" style="background-color: {{colorFn[activity.getTypeId()]}}; cursor: pointer;">
                             <span class="schedule-text">{{actStartTime($index,dayX)}} {{activity.getName()}} ({{activity.getLength()}} min)</span>
                             <img class ="trashBtn" data-ng-click='removeActivity($index,$parent.$index)'src="/assets/images/trash-512.png" alt="Remove activity">
-                            <img class ="trashBtn" data-ng-click='changeToEditView($index,$parent.$index)'src="/assets/images/edit-512.png" alt="Edit activity" > 
-                             
-                           
+                            <img class ="trashBtn" data-ng-click='changeToEditView($index,$parent.$index)'src="/assets/images/edit-512.png" alt="Edit activity" >                                                   
                         </div>
                     </a>
                     </div>

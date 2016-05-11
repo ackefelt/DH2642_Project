@@ -6,25 +6,23 @@ a:hover {
 	text-decoration: none;
 }
 
-.lvl-over {
 
-	/* applied to a drop target when a draggable object is over it */
-	border: 2px dashed black;
+.lvl-droppable{
 }
+.lvl-over{
+	border: 2px dashed black !important;
 }
 
-
-
-
+/*
 .lvl-target {
 	/* 
 	applied to all drop targets when a drag operation begins 
 	removed when the drag operation ends
 	used to indicate drop targets on a page 
-	*/
+	
 	background-color: #ddd;
 	opacity: .5;
-}
+}*/
 
 [draggable] {
 	/* not applied by the directive, but useful to indicate a draggable element */
@@ -164,7 +162,7 @@ a:hover {
 
 .day {
 	width: 20em;
-	display: inline-block;
+	/*display: inline-block;*/
 	background-color:rgba(255,255,255,0.9);
 	min-height: 547px; 
 	border: 2px solid #000;
@@ -193,6 +191,10 @@ a:hover {
 	width: 5em;
 	height: 8em;
 	float: right;
+}
+.inner{
+	margin-top:78px;
+	border-bottom:3px solid red;
 }
 
 .daySchedule {

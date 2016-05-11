@@ -12,10 +12,10 @@ agendaPlannerApp.controller('overviewCtrl', function ($scope,Agenda,ngDragDrop,$
     }
 
     $scope.dropped = function(newDay, newPosition, dragEl, dropEl) {
-    Agenda.moveActivity($scope.latestDragDay, $scope.latestDragPos, newDay,newPosition);
-    $scope.days = Agenda.getDays();
-    $scope.parkedActivities = Agenda.getParkedActivities();
-    $scope.$apply();
+        Agenda.moveActivity($scope.latestDragDay, $scope.latestDragPos, newDay,newPosition);
+        $scope.days = Agenda.getDays();
+        $scope.parkedActivities = Agenda.getParkedActivities();
+        $scope.$apply();
     }
 
     $scope.actStartTime = function(index,day) {

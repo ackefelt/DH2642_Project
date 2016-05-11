@@ -18,7 +18,6 @@ module.directive('lvlDraggable', ['$rootScope','uuid', function ($rootScope, uui
             console.log(id);
             el.bind("dragstart", function (e) {
                 e.originalEvent.dataTransfer.setData('text', id);
-                console.log('drag');
                 $rootScope.$emit("LVL-DRAG-START");
                 scope.onDrag({dragEl: null, dropEl: null});
             });
@@ -54,7 +53,9 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function ($rootScope, u
 
             el.bind("dragenter", function (e) {
                 // this / e.target is the current hover target.
-                angular.element(e.target).addClass('lvl-over');
+                if(angular.element(e.target).hasClass('lvl-droppable')){
+                    angular.element(e.target).addClass('lvl-over'); 
+                }
             });
 
             el.bind("dragleave", function (e) {
@@ -74,6 +75,7 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function ($rootScope, u
                 var src = document.getElementById(data);
 
                 scope.onDrop({dragEl: data, dropEl: id});
+                angular.element(e.target).removeClass('lvl-over');
             });
 
             $rootScope.$on("LVL-DRAG-START", function () {
